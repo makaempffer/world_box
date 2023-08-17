@@ -15,6 +15,7 @@ class TileManager:
     def draw(self):
         for tile in self.tiles:
             tile.draw()
+            tile.draw_border()
 
 
     def setup(self):
