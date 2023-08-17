@@ -3,6 +3,7 @@ import sys
 from settings import *
 
 from tile_manager import TileManager
+from entity_manager import EntityManager
 
 class Game:
     def __init__(self) -> None:
@@ -15,6 +16,7 @@ class Game:
 
     def setup(self):
         self.tile_manager = TileManager(self.screen)
+        self.entity_manager = EntityManager(self.screen)
 
     def update(self):
         self.delta_time = self.clock.tick(FPS)
@@ -24,6 +26,7 @@ class Game:
     def draw(self):
         self.screen.fill((0, 0, 0))
         self.tile_manager.draw()
+        self.entity_manager.draw()
 
     def check_events(self):
         for event in pg.event.get():
