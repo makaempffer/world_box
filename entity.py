@@ -13,7 +13,7 @@ class Entity:
         self.delta_time = 1
         self.cooldown_counter = 0
         self.MAX_COOLDOWN = 100 # Miliseconds
-        self.can_move = False
+        self.can_move = True 
         self.move_target = None
 
     def draw(self):
@@ -21,7 +21,6 @@ class Entity:
 
     def update(self):
         self.timer_logic()
-        self.on_cooldown()
         self.move_random()
 
     def timer_logic(self):
@@ -36,7 +35,13 @@ class Entity:
         self.can_move = True
         # Actions to do when the cooldown is over.
 
+    def on_target_reached(self):
+        if self.position == self.move_target:
+            print("Destination Reached.")
+            self.move_target = None
+
     def move_random(self):
+        self.on_target_reached()
         if self.move_target:
             dist_x = self.position.x - self.move_target.x
             dist_y = self.position.y - self.move_target.y
@@ -51,5 +56,6 @@ class Entity:
             self.rect.x = int(self.position.x)
             self.rect.y = int(self.position.y)
             return
-        x, y = randint(0, WIDTH), randint(0, HEIGHT)
-        self.move_target = pg.Vector2(x, y)
+        if self.can_move:
+            x, y = randint(0, WIDTH), randint(0, HEIGHT)
+            self.move_target = pg.Vector2(x, y)
