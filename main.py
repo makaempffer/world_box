@@ -4,6 +4,7 @@ from settings import *
 
 from tile_manager import TileManager
 from entity_manager import EntityManager
+from kingdom_manager import KingdomManager
 
 class Game:
     def __init__(self) -> None:
@@ -17,11 +18,13 @@ class Game:
     def setup(self):
         self.tile_manager = TileManager(self.screen)
         self.entity_manager = EntityManager(self.screen)
+        self.kingdom_manager = KingdomManager(self.screen)
 
     def update(self):
         self.delta_time = self.clock.tick(FPS)
         ### COMPONENT UPDATES.
         self.entity_manager.update()
+        self.kingdom_manager.update()
         ###
         pg.display.set_caption(str(self.clock.get_fps()))
         pg.display.flip()      
@@ -30,6 +33,7 @@ class Game:
         self.screen.fill((0, 0, 0))
         self.tile_manager.draw()
         self.entity_manager.draw()
+        self.kingdom_manager.draw()
 
     def check_events(self):
         for event in pg.event.get():
