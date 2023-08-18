@@ -20,6 +20,9 @@ class Game:
 
     def update(self):
         self.delta_time = self.clock.tick(FPS)
+        ### COMPONENT UPDATES.
+        self.entity_manager.update()
+        ###
         pg.display.set_caption(str(self.clock.get_fps()))
         pg.display.flip()      
 
@@ -34,15 +37,11 @@ class Game:
                 pg.quit()
                 sys.exit()
 
-
-
     def run(self):
         while self.is_running:
             self.check_events()
             self.update()
             self.draw()
-
-
 
 game = Game()
 game.run()

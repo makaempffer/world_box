@@ -1,4 +1,3 @@
-import pygame as pg
 from settings import *
 from entity import Entity
 
@@ -17,3 +16,7 @@ class EntityManager:
     def draw(self):
         for entity in self.entities:
             entity.draw()
+
+    def update(self):
+        for entity in self.entities:
+            entity.update()
