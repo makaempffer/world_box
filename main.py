@@ -32,8 +32,8 @@ class Game:
     def draw(self):
         self.screen.fill((0, 0, 0))
         self.tile_manager.draw()
-        self.entity_manager.draw()
         self.kingdom_manager.draw()
+        self.entity_manager.draw()
 
     def check_events(self):
         for event in pg.event.get():
