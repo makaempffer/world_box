@@ -1,5 +1,6 @@
 import pygame as pg
 from settings import *
+from entity import Entity
 
 class Kingdom:
     def __init__(self, screen, x, y) -> None:
@@ -17,4 +18,7 @@ class Kingdom:
         pg.draw.rect(self.screen, self.color, self.rect)
 
     def update(self):
-        pass
+        print("Kingdom Updated.")
+
+    def get_entities(self) -> list[Entity]:
+        return self.entities

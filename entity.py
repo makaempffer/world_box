@@ -15,6 +15,10 @@ class Entity:
         self.MAX_COOLDOWN = 100 # Miliseconds
         self.can_move = True 
         self.move_target = None
+        self.kingdom = None
+
+    def set_kingdom(self, kingdom):
+        self.kingdom = kingdom
 
     def draw(self):
         pg.draw.rect(self.screen, self.color, self.rect)
