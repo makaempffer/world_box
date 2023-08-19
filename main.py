@@ -5,6 +5,7 @@ from settings import *
 from tile_manager import TileManager
 from entity_manager import EntityManager
 from kingdom_manager import KingdomManager
+from entity_kingdom_linker import EntityKingdomLinker
 
 class Game:
     def __init__(self) -> None:
@@ -19,6 +20,8 @@ class Game:
         self.tile_manager = TileManager(self.screen)
         self.entity_manager = EntityManager(self.screen)
         self.kingdom_manager = KingdomManager(self.screen)
+        self.entity_linker = EntityKingdomLinker(self.entity_manager.get_entities(), self.kingdom_manager.get_kingdom(0))
+        self.entity_linker.link_kingdom_to_entity()
 
     def update(self):
         self.delta_time = self.clock.tick(FPS)

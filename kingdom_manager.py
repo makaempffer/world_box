@@ -23,4 +23,7 @@ class KingdomManager:
     def draw(self):
         for kingdom in self.kingdoms_data:
             kingdom.draw()
+    
+    def get_kingdom(self, index: int) -> Kingdom:
+        return self.kingdom_list[index]
 

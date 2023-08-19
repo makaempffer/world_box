@@ -7,6 +7,9 @@ class EntityManager:
         self.entities = []
         self.screen = screen
         self.setup_default_entities(10)
+    
+    def get_entities(self) -> list:
+        return self.entities
 
 
     def setup_default_entities(self, amount: int):

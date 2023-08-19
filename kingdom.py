@@ -18,7 +18,7 @@ class Kingdom:
         pg.draw.rect(self.screen, self.color, self.rect)
 
     def update(self):
-        print("Kingdom Updated.")
+        pass
 
     def get_entities(self) -> list[Entity]:
         return self.entities

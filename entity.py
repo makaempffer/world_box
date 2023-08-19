@@ -16,6 +16,7 @@ class Entity:
         self.can_move = True 
         self.move_target = None
         self.kingdom = None
+        self.activity_fullfilled = False
 
     def set_kingdom(self, kingdom):
         self.kingdom = kingdom
@@ -32,7 +33,7 @@ class Entity:
         self.cooldown_counter += 1
         if self.cooldown_counter >= self.MAX_COOLDOWN:
             self.on_cooldown()
-            print("TIME EXCEDED")
+            print("[ENT.CLOCK] -> Cooldown reached.")
             self.cooldown_counter = 0
 
     def on_cooldown(self):
@@ -41,8 +42,12 @@ class Entity:
 
     def on_target_reached(self):
         if self.position == self.move_target:
-            print("Destination Reached.")
+            print("[ENT.] -> Target reached.")
             self.move_target = None
+
+    def return_home(self):
+        if self.kingdom:
+            self.move_target = self.kingdom.position
 
     def move_random(self):
         self.on_target_reached()
@@ -60,6 +65,6 @@ class Entity:
             self.rect.x = int(self.position.x)
             self.rect.y = int(self.position.y)
             return
-        if self.can_move:
-            x, y = randint(0, WIDTH), randint(0, HEIGHT)
-            self.move_target = pg.Vector2(x, y)
+            
+        if self.can_move and self.kingdom:
+            self.return_home()
