@@ -14,7 +14,19 @@ class Game:
         self.is_running = True
         self.clock = pg.time.Clock()
         self.delta_time = 1
+        self.LAZY_UPDATE_MAX = 100
+        self.lazy_update_counter = 0
         self.setup()
+
+    def on_lazy_update(self):
+        print("[MAIN] -> Lazy update.")
+        self.tile_manager.update()
+
+    def lazy_counter_logic(self):
+        self.lazy_update_counter += 1
+        if self.lazy_update_counter >= self.LAZY_UPDATE_MAX:
+            self.on_lazy_update()
+            self.lazy_update_counter = 0
 
     def setup(self):
         self.tile_manager = TileManager(self.screen)
@@ -25,6 +37,7 @@ class Game:
 
     def update(self):
         self.delta_time = self.clock.tick(FPS)
+        self.lazy_counter_logic()
         ### COMPONENT UPDATES.
         self.entity_manager.update()
         self.kingdom_manager.update()

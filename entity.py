@@ -4,6 +4,7 @@ from random import randint
 from resource_data import ResourceData
 # TODO Add searching/discovering/remembering of the resources that has stepped over. 
 # TODO Add rutine priorities.
+# TODO Add interaction. Entity -> Tile -> GetResources() -> HarvestResources().
 class Entity:
     def __init__(self, screen):
         self.screen = screen
@@ -26,15 +27,10 @@ class Entity:
         self.resource_data = ResourceData()
         self.resource_data.get_supply('wood', 100)
 
-    
-
     def behavior(self):
         if self.kingdom and self.position.distance_to(self.kingdom.position) < 20:
-            print("[ENT] -> Suppliying.")
             self.resource_data.dump_inventory_to_target(self.kingdom)
-            print(f'[ENT] -> {self.resource_data.data}')
             # self.resource_data.supply(self.kingdom, "wood", 1)
-
         current_rutine = self.rutines[0]
         self.rutine_performed = current_rutine
 
@@ -73,8 +69,8 @@ class Entity:
         if self.position == self.move_target:
             # Changing fullfiled routine to the back of the stack.
             self.rutines.append(self.rutines.pop(0))
-            print(f'[ENT.] -> Routine: {self.rutines}')
-            print("[ENT.] -> Target reached.")
+            print(f'[ENT] -> Routine: {self.rutines}')
+            print("[ENT] -> Target reached.")
             self.idle = True
             self.reached = True
             self.move_target = None

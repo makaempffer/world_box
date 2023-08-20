@@ -8,4 +8,4 @@ class EntityKingdomLinker:
     def link_kingdom_to_entity(self):
         for entity in self.entity_list:
             entity.set_kingdom(self.kingdom)
-            print("[LINKER] -> Entity-Kingdom group set.")
+            print("[LINKER] -> Entity-Kingdom link set.")

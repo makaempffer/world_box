@@ -17,6 +17,10 @@ class TileManager:
             tile.draw()
             tile.draw_border()
 
+    def update(self):
+        for tile in self.tiles:
+            tile.update()
+
 
     def setup(self):
         self.create_default_map()
