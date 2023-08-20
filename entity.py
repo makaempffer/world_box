@@ -1,7 +1,11 @@
 from settings import *
 import pygame as pg
 from random import randint
+from resource_data import ResourceData
 # TODO Add a behavior or "rutine" system to dictate how the entity behaves, acts. 
+# TODO Add searching/discovering/remembering of the resources that has stepped over. 
+# TODO Add rutine priorities.
+# TODO Add method supply(target_class("ex; self.kingdom"), {item: amount})
 class Entity:
     def __init__(self, screen):
         self.screen = screen
@@ -21,12 +25,18 @@ class Entity:
         self.rutine_performed = None
         self.reached = False
         self.idle = True
+        self.resource_data = ResourceData()
+
     
 
     def behavior(self):
-        print(f'[ENT.] Entity behavior -> Updated.')
+        if self.kingdom and self.position.distance_to(self.kingdom.position) < 20:
+            print("[ENT] -> Suppliying.")
+            self.resource_data.supply(self.kingdom, "wood", 1)
+
         current_rutine = self.rutines[0]
         self.rutine_performed = current_rutine
+
         if self.rutine_performed == "wonder" and self.idle == True and not self.move_target:
             self.move_target = pg.Vector2(randint(0, WIDTH), randint(0, HEIGHT)) 
             self.idle = False

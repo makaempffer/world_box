@@ -1,6 +1,7 @@
 import pygame as pg
 from settings import *
 from entity import Entity
+from resource_data import ResourceData
 
 class Kingdom:
     def __init__(self, screen, x, y) -> None:
@@ -10,6 +11,7 @@ class Kingdom:
         self.size = 100
         self.rect = pg.Rect(self.position.x, self.position.y, self.size, self.size)
         self.color = (0, 0, 100)
+        self.resource_data = ResourceData()
 
     def set_entities(self, array_entities):
         self.entities += array_entities
@@ -22,3 +24,5 @@ class Kingdom:
 
     def get_entities(self) -> list[Entity]:
         return self.entities
+
+    
