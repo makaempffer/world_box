@@ -15,3 +15,9 @@ class ResourceData:
     def supply(self, target, key_res, amount):
         print("[RES] -> Supliying.")
         target.resource_data.get_supply(key_res, amount)
+
+    def dump_inventory_to_target(self, target):
+        for item in self.data:
+            target.resource_data.get_supply(item, self.data[item])
+            self.data[item] = 0
+            print("[RES] -> Dumped inventory.")
