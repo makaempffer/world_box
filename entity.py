@@ -1,7 +1,7 @@
 from settings import *
 import pygame as pg
 from random import randint
-
+# TODO Add a behavior or "rutine" system to dictate how the entity behaves, acts. 
 class Entity:
     def __init__(self, screen):
         self.screen = screen
@@ -17,6 +17,23 @@ class Entity:
         self.move_target = None
         self.kingdom = None
         self.activity_fullfilled = False
+        self.rutines = ["wonder", "go_home"]
+        self.rutine_performed = None
+        self.reached = False
+        self.idle = True
+    
+
+    def behavior(self):
+        print(f'[ENT.] Entity behavior -> Updated.')
+        current_rutine = self.rutines[0]
+        self.rutine_performed = current_rutine
+        if self.rutine_performed == "wonder" and self.idle == True and not self.move_target:
+            self.move_target = pg.Vector2(randint(0, WIDTH), randint(0, HEIGHT)) 
+            self.idle = False
+
+        elif self.rutine_performed == "go_home" and self.idle == True and not self.move_target:
+            self.return_home()
+            self.idle = False
 
     def set_kingdom(self, kingdom):
         self.kingdom = kingdom
@@ -26,7 +43,8 @@ class Entity:
 
     def update(self):
         self.timer_logic()
-        self.move_random()
+        self.behavior()
+        self.move()
 
     def timer_logic(self):
         self.delta_time = self.clock.tick(FPS)
@@ -42,14 +60,20 @@ class Entity:
 
     def on_target_reached(self):
         if self.position == self.move_target:
+            # Changing fullfiled routine to the back of the stack.
+            self.rutines.append(self.rutines.pop(0))
+            print(f'[ENT.] -> Routine: {self.rutines}')
             print("[ENT.] -> Target reached.")
+            self.idle = True
+            self.reached = True
             self.move_target = None
 
     def return_home(self):
         if self.kingdom:
             self.move_target = self.kingdom.position
 
-    def move_random(self):
+
+    def move(self):
         self.on_target_reached()
         if self.move_target:
             dist_x = self.position.x - self.move_target.x
@@ -66,5 +90,3 @@ class Entity:
             self.rect.y = int(self.position.y)
             return
             
-        if self.can_move and self.kingdom:
-            self.return_home()
