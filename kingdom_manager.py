@@ -10,7 +10,8 @@ class KingdomManager:
         self.setup_default()
 
     def setup_default(self):
-        self.add_kingdom(Kingdom(self.screen, 100, 100))
+        # self.add_kingdom(Kingdom(self.screen, 100, 100))
+        pass
 
     def add_kingdom(self, kingdom: Kingdom):
         self.kingdoms_data[kingdom] = [kingdom.get_entities()]
@@ -24,6 +25,7 @@ class KingdomManager:
         for kingdom in self.kingdoms_data:
             kingdom.draw()
     
-    def get_kingdom(self, index: int) -> Kingdom:
-        return self.kingdom_list[index]
+    def get_kingdom(self, index: int):
+        if len(self.kingdom_list) > 0:
+            return self.kingdom_list[index]
 

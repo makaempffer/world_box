@@ -22,7 +22,7 @@ class Entity:
         self.move_target = None
         self.kingdom = None
         self.activity_fullfilled = False
-        self.rutines = ["wonder", "go_home"]
+        self.rutines = ["wonder"]
         self.rutine_performed = None
         self.reached = False
         self.idle = True
@@ -31,13 +31,18 @@ class Entity:
 
     def get_tile_data(self):
         tile_x , tile_y = self.position.x // TILE_SIZE, self.position.y // TILE_SIZE
-        tile_x_index = tile_x 
-        tile_y_index = tile_y
-        index = str(int(tile_y_index)) + str(int(tile_x_index))
-        index = str(int(tile_x_index)) + str(int(tile_y_index))
+        tile_x_index = str(int(tile_x)) 
+        tile_y_index = str(int(tile_y))
+        if int(tile_y_index) < 10:
+            tile_y_index = "0" + tile_y_index
+
+        # index = str(int(tile_y_index)) + str(int(tile_x_index))
+        index = (tile_x_index) + (tile_y_index)
+        
         tile = self.tile_manager.get_tile(index)
-        pg.draw.circle(self.screen, (0, 0, 255), (tile.position.x, tile.position.y), 5)
-        print(f'[ENT] -> Tile index -> {index} -> tile {self.tile_manager.get_tile(index)}')
+        tile.color = (150, 150, 0)
+        # pg.draw.circle(self.screen, (0, 0, 255), (tile.position.x, tile.position.y), 5)
+        print(f'[ENT] -> Tile index -> {index} -> tile {self.tile_manager.get_tile(index)}, raw -> {tile_x_index} {tile_y_index}')
 
 
     
@@ -52,7 +57,7 @@ class Entity:
             self.move_target = pg.Vector2(randint(0, WIDTH), randint(0, HEIGHT)) 
             self.idle = False
 
-        elif self.rutine_performed == "go_home" and self.idle == True and not self.move_target:
+        elif self.rutine_performed == "go_home" and self.idle == True and not self.move_target and self.kingdom:
             self.return_home()
             self.idle = False
 
@@ -60,7 +65,8 @@ class Entity:
         self.kingdom = kingdom
 
     def draw(self):
-        pg.draw.rect(self.screen, self.color, self.rect)
+    # pg.draw.rect(self.screen, self.color, self.rect)
+        pg.draw.circle(self.screen, self.color, self.position, self.size)
 
     def update(self):
         self.timer_logic()
