@@ -21,6 +21,13 @@ class TileManager:
         for tile in self.tiles:
             tile.update()
 
+    def get_tile(self, idx) -> Tile:
+        index = int(idx)
+        if int(index) <= len(self.tiles):
+            return self.tiles[index]
+        else:
+            return self.tiles[0]
+
 
     def setup(self):
         self.create_default_map()

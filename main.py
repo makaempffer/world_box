@@ -19,6 +19,7 @@ class Game:
         self.setup()
 
     def on_lazy_update(self):
+        # Function that get's called every X time.
         print("[MAIN] -> Lazy update.")
         self.tile_manager.update()
 
@@ -30,7 +31,7 @@ class Game:
 
     def setup(self):
         self.tile_manager = TileManager(self.screen)
-        self.entity_manager = EntityManager(self.screen)
+        self.entity_manager = EntityManager(self.screen, self.tile_manager)
         self.kingdom_manager = KingdomManager(self.screen)
         self.entity_linker = EntityKingdomLinker(self.entity_manager.get_entities(), self.kingdom_manager.get_kingdom(0))
         self.entity_linker.link_kingdom_to_entity()

@@ -5,9 +5,11 @@ from resource_data import ResourceData
 # TODO Add searching/discovering/remembering of the resources that has stepped over. 
 # TODO Add rutine priorities.
 # TODO Add interaction. Entity -> Tile -> GetResources() -> HarvestResources().
+# TODO Think if give all the entities access/store all tiles or just get one by functions...
 class Entity:
-    def __init__(self, screen):
+    def __init__(self, screen, tile_manager):
         self.screen = screen
+        self.tile_manager = tile_manager
         self.color = (200, 0, 0)
         self.position = pg.Vector2(randint(0, WIDTH), randint(0, HEIGHT))
         self.size = ENTITY_SIZE
@@ -27,6 +29,18 @@ class Entity:
         self.resource_data = ResourceData()
         self.resource_data.get_supply('wood', 100)
 
+    def get_tile_data(self):
+        tile_x , tile_y = self.position.x//TILE_SIZE, self.position.y//TILE_SIZE
+        tile_x_index = tile_x 
+        tile_y_index = tile_y 
+        index = str(int(tile_y_index)) + str(int(tile_x_index))
+        index = str(int(tile_x_index)) + str(int(tile_y_index))
+        tile = self.tile_manager.get_tile(index)
+        tile.color = (0, 0, 255)
+        print(f'[ENT] -> Tile index -> {index} -> tile {self.tile_manager.get_tile(index)}')
+
+
+    
     def behavior(self):
         if self.kingdom and self.position.distance_to(self.kingdom.position) < 20:
             self.resource_data.dump_inventory_to_target(self.kingdom)
@@ -52,6 +66,7 @@ class Entity:
         self.timer_logic()
         self.behavior()
         self.move()
+        self.get_tile_data()
 
     def timer_logic(self):
         self.delta_time = self.clock.tick(FPS)
