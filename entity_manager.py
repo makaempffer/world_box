@@ -11,6 +11,7 @@ class EntityManager:
     
     def get_entities(self) -> list:
         return self.entities
+    
 
 
     def setup_default_entities(self, amount: int):

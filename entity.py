@@ -30,13 +30,13 @@ class Entity:
         self.resource_data.get_supply('wood', 100)
 
     def get_tile_data(self):
-        tile_x , tile_y = self.position.x//TILE_SIZE, self.position.y//TILE_SIZE
+        tile_x , tile_y = self.position.x // TILE_SIZE, self.position.y // TILE_SIZE
         tile_x_index = tile_x 
-        tile_y_index = tile_y 
+        tile_y_index = tile_y
         index = str(int(tile_y_index)) + str(int(tile_x_index))
         index = str(int(tile_x_index)) + str(int(tile_y_index))
         tile = self.tile_manager.get_tile(index)
-        tile.color = (0, 0, 255)
+        pg.draw.circle(self.screen, (0, 0, 255), (tile.position.x, tile.position.y), 5)
         print(f'[ENT] -> Tile index -> {index} -> tile {self.tile_manager.get_tile(index)}')
 
 
