@@ -30,19 +30,20 @@ class Entity:
         self.resource_data.get_supply('wood', 100)
 
     def get_tile_data(self):
+        if self.idle == True:
+            # Not checking if entity is idling.
+            return
         tile_x , tile_y = self.position.x // TILE_SIZE, self.position.y // TILE_SIZE
         tile_x_index = str(int(tile_x)) 
         tile_y_index = str(int(tile_y))
         if int(tile_y_index) < 10:
             tile_y_index = "0" + tile_y_index
 
-        # index = str(int(tile_y_index)) + str(int(tile_x_index))
         index = (tile_x_index) + (tile_y_index)
         
         tile = self.tile_manager.get_tile(index)
         tile.color = (150, 150, 0)
-        # pg.draw.circle(self.screen, (0, 0, 255), (tile.position.x, tile.position.y), 5)
-        print(f'[ENT] -> Tile index -> {index} -> tile {self.tile_manager.get_tile(index)}, raw -> {tile_x_index} {tile_y_index}')
+        # print(f'[ENT] -> Tile index -> {index} -> tile {self.tile_manager.get_tile(index)}, raw -> {tile_x_index} {tile_y_index}')
 
 
     
@@ -58,8 +59,9 @@ class Entity:
             self.idle = False
 
         elif self.rutine_performed == "go_home" and self.idle == True and not self.move_target and self.kingdom:
-            self.return_home()
-            self.idle = False
+            if self.kingdom:
+                self.return_home()
+                self.idle = False
 
     def set_kingdom(self, kingdom):
         self.kingdom = kingdom
@@ -86,10 +88,13 @@ class Entity:
         self.can_move = True
         # Actions to do when the cooldown is over.
 
+    def pop_rutine(self):
+        self.rutines.append(self.rutines.pop(0))
+
     def on_target_reached(self):
         if self.position == self.move_target:
             # Changing fullfiled routine to the back of the stack.
-            self.rutines.append(self.rutines.pop(0))
+            self.pop_rutine()
             print(f'[ENT] -> Routine: {self.rutines}')
             print("[ENT] -> Target reached.")
             self.idle = True
