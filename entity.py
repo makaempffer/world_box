@@ -22,12 +22,34 @@ class Entity:
         self.move_target = None
         self.kingdom = None
         self.activity_fullfilled = False
-        self.rutines = ["wonder"]
+        self.rutines = ["wonder", "harvest", "go_home"]
         self.rutine_performed = None
         self.reached = False
         self.idle = True
         self.resource_data = ResourceData()
-        self.resource_data.get_supply('wood', 100)
+        self.resource_data.get_supply('wood', 5)
+        self.stored_tile_res = []
+        self.closest_resource = None
+        self.is_harvesting = False
+        self.MAX_CARRY_LIMIT = randint(5, 20)
+
+    def get_tile_resources(self, tile):
+        if tile.resource_data == None:
+            return
+        if tile not in self.stored_tile_res:
+            self.stored_tile_res.append(tile) 
+        if self.closest_resource == None:
+            self.closest_resource = tile
+            print(f"[ENT] -> Closest tile resource set -> {tile}")
+            tile.color = (255, 0, 0)
+        if self.kingdom:
+
+            if self.kingdom.position.distance_to(tile.position) < self.position.distance_to(self.closest_resource.position):
+                self.closest_resource = tile
+                tile.color = (100, 0, 0)
+                print(f"[ENT] -> Closest tile resource reset -> {tile}")
+            # print(f"[ENT] -> Closest resource -> {self.closest_resource}")
+        # print(f"[ENT] -> Saved tile {tile} at {self.stored_tile_res}")
 
     def get_tile_data(self):
         if self.idle == True:
@@ -42,11 +64,23 @@ class Entity:
         index = (tile_x_index) + (tile_y_index)
         
         tile = self.tile_manager.get_tile(index)
-        tile.color = (150, 150, 0)
+        # tile.color = (150, 150, 0)
+        self.get_tile_resources(tile)
         # print(f'[ENT] -> Tile index -> {index} -> tile {self.tile_manager.get_tile(index)}, raw -> {tile_x_index} {tile_y_index}')
 
-
-    
+    def harvest_tile(self, resource="wood"):
+        if self.closest_resource == None:
+            return
+        elif self.closest_resource.resource_data == None:
+            return
+        if self.closest_resource and self.position.distance_to(self.closest_resource.position) < 5 and self.resource_data.get_quantity(resource) <= self.MAX_CARRY_LIMIT:
+            if self.resource_data.contains(resource):
+                self.resource_data.data[resource] += self.closest_resource.resource_data.get_item(resource)
+                self.is_harvesting = False
+            else:
+                self.resource_data.data[resource] = self.closest_resource.resource_data.get_item(resource)
+                self.is_harvesting = False
+                
     def behavior(self):
         if self.kingdom and self.position.distance_to(self.kingdom.position) < 20:
             self.resource_data.dump_inventory_to_target(self.kingdom)
@@ -63,6 +97,17 @@ class Entity:
                 self.return_home()
                 self.idle = False
 
+        if self.rutine_performed == "harvest" and self.closest_resource == None:
+            self.pop_rutine()
+        elif self.rutine_performed == "harvest" and self.idle == True and self.closest_resource:
+            self.move_target = self.closest_resource.position
+            self.idle = False
+            self.is_harvesting = True
+
+        if self.is_harvesting and self.closest_resource:
+            self.harvest_tile()
+        self.get_tile_data()
+
     def set_kingdom(self, kingdom):
         self.kingdom = kingdom
 
@@ -74,7 +119,6 @@ class Entity:
         self.timer_logic()
         self.behavior()
         self.move()
-        self.get_tile_data()
 
     def timer_logic(self):
         self.delta_time = self.clock.tick(FPS)
@@ -90,6 +134,7 @@ class Entity:
 
     def pop_rutine(self):
         self.rutines.append(self.rutines.pop(0))
+        print(f"[ENT.RTN] -> Routine poped to -> {self.rutines[0]}")
 
     def on_target_reached(self):
         if self.position == self.move_target:

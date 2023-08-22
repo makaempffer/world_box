@@ -7,7 +7,7 @@ class EntityManager:
         self.entities = []
         self.screen = screen
         self.tile_manager = tile_manager
-        self.setup_default_entities(100)
+        self.setup_default_entities(1)
     
     def get_entities(self) -> list:
         return self.entities

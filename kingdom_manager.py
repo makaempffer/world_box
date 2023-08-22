@@ -10,8 +10,7 @@ class KingdomManager:
         self.setup_default()
 
     def setup_default(self):
-        # self.add_kingdom(Kingdom(self.screen, 100, 100))
-        pass
+        self.add_kingdom(Kingdom(self.screen, 100, 100))
 
     def add_kingdom(self, kingdom: Kingdom):
         self.kingdoms_data[kingdom] = [kingdom.get_entities()]

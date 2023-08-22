@@ -16,6 +16,7 @@ class ResourceData:
         else:
             return 0
 
+
     def get_supply(self, key_res, amount):
         if key_res in self.data:
             self.data[key_res] += amount
@@ -30,7 +31,21 @@ class ResourceData:
 
     def dump_inventory_to_target(self, target):
         for item in self.data:
+            if self.get_quantity(item) < 1:
+                continue
             target.resource_data.get_supply(item, self.data[item])
             self.data[item] = 0
             print("[RES] -> Dumped inventory.")
+
+    def get_item(self, item="wood", quantity: int = 1):
+        print("[RES] -> HARVESTED")
+        if item in self.data and self.data[item] > 0:
+            self.data[item] -= quantity
+            print(f"[RES] -> Item returned -> {item}, qty: {quantity}, left: {self.data[item]}")
+
+            return quantity
+        else:
+            return 0
+
+
 
