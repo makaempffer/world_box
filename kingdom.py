@@ -8,7 +8,7 @@ class Kingdom:
         self.screen = screen
         self.position = pg.Vector2(x, y)
         self.entities = []
-        self.size = 100
+        self.size = 50
         self.rect = pg.Rect(self.position.x, self.position.y, self.size, self.size)
         self.color = (0, 0, 100)
         self.resource_data = ResourceData()
