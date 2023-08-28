@@ -32,7 +32,7 @@ class Game:
     def setup(self):
         self.tile_manager = TileManager(self.screen)
         self.entity_manager = EntityManager(self.screen, self.tile_manager)
-        self.kingdom_manager = KingdomManager(self.screen)
+        self.kingdom_manager = KingdomManager(self.screen, self.tile_manager)
         self.entity_linker = EntityKingdomLinker(self.entity_manager.get_entities(), self.kingdom_manager.get_kingdom(0))
         self.entity_linker.link_kingdom_to_entity()
 
@@ -42,7 +42,7 @@ class Game:
         ### COMPONENT UPDATES.
         self.entity_manager.update()
         self.kingdom_manager.update()
-        ###
+        ### DRAW UPDATES.
         pg.display.set_caption(str(self.clock.get_fps()))
         pg.display.flip()      
 

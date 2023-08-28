@@ -13,7 +13,15 @@ class Tile:
         self.color = (0, 150, 0)
         self.border_color = (200, 200, 200)
         self.resource_data = None
+        self.is_conquered = False
+        self.conqueror = None
         self.setup()
+
+    def set_conquered(self, kingdom):
+        if self.is_conquered == False and self.conqueror == None:
+            self.is_conquered = True
+            self.conqueror = kingdom
+            self.color = kingdom.color
 
     def setup(self):
         if randint(0, 100) > 99:
@@ -31,9 +39,6 @@ class Tile:
             for item in self.resource_data.data:
                 if item == "wood" and self.resource_data.get_quantity(item) >= 1:
                     self.color = (111, 78, 55)
-                else:
-                    self.color = (0, 150, 0)
-
 
     def draw(self):
         pg.draw.rect(self.screen, self.color, self.rect)

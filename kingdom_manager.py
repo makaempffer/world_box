@@ -3,14 +3,15 @@ from kingdom import Kingdom
 
 
 class KingdomManager:
-    def __init__(self, screen):
+    def __init__(self, screen, tile_manager):
         self.screen = screen
+        self.tile_manager = tile_manager
         self.kingdoms_data = {}
         self.kingdom_list = []
         self.setup_default()
 
     def setup_default(self):
-        self.add_kingdom(Kingdom(self.screen, 100, 100))
+        self.add_kingdom(Kingdom(self.screen, 500, 500, self.tile_manager))
 
     def add_kingdom(self, kingdom: Kingdom):
         self.kingdoms_data[kingdom] = [kingdom.get_entities()]
