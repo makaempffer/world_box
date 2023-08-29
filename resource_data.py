@@ -36,6 +36,7 @@ class ResourceData:
             target.resource_data.get_supply(item, self.data[item])
             self.data[item] = 0
             print("[RES] -> Dumped inventory.")
+        self.data = {}
 
     def get_item(self, item="wood", quantity: int = 1):
         print("[RES] -> HARVESTED")

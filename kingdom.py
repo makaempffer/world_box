@@ -66,8 +66,23 @@ class Kingdom:
         tile_object = self.tile_manager.get_tile(conquered_tile)
         tile_object.set_conquered(self)
         self.conquered_tiles.append(tile_object)
+    
+    def calculate_level(self):
+        total_experience = 0
+        for item in self.resource_data.data:
+            item_exp = self.resource_data.get_quantity(item)
+            if item == "wood":
+                item_exp *= 1
+            elif item == "stone":
+                item_exp *= 1.2
+            total_experience += item_exp
+
+        self.experience = total_experience
+            
+
 
     def level_logic(self):
+        self.calculate_level()
         if self.experience >= self.next_level:
             self.conquer()
             self.level += 1

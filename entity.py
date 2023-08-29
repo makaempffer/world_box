@@ -84,7 +84,6 @@ class Entity:
     def behavior(self):
         if self.kingdom and self.position.distance_to(self.kingdom.position) < 20:
             self.resource_data.dump_inventory_to_target(self.kingdom)
-            self.kingdom.experience += 1
             print(f"[ENT] -> Kingdom experience -> {self.kingdom.experience} level -> {self.kingdom.level}")
             # self.resource_data.supply(self.kingdom, "wood", 1)
         current_rutine = self.rutines[0]
