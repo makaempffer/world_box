@@ -17,7 +17,7 @@ class Kingdom:
         self.conquered_tiles = []
         self.level = 0
         self.experience = 0
-        self.next_level = 100
+        self.next_level = 10 
 
 
     def get_tile_by_index(self):
@@ -31,32 +31,41 @@ class Kingdom:
         
         return index
 
-    def get_random_neighbor(self, x, y):
-        neighbor_left = str(int((x - TILE_SIZE) // TILE_SIZE)) + str(int(y // TILE_SIZE))
-        neighbor_right = str(int((x + TILE_SIZE) // TILE_SIZE)) + str(int(y // TILE_SIZE))
-        neighbor_top = str(int(x // TILE_SIZE)) + str(int((y - TILE_SIZE) // TILE_SIZE))
-        neighbor_bottom = str(int(x // TILE_SIZE)) + str(int((y + TILE_SIZE) // TILE_SIZE))
+    def get_random_neighbor(self, position):
+        neighbor_left = str(int((position.x - TILE_SIZE) // TILE_SIZE)) + str(int(position.y // TILE_SIZE))
+        neighbor_right = str(int((position.x + TILE_SIZE) // TILE_SIZE)) + str(int(position.y // TILE_SIZE))
+        neighbor_top = str(int(position.x // TILE_SIZE)) + str(int((position.y - TILE_SIZE) // TILE_SIZE))
+        neighbor_bottom = str(int(position.x // TILE_SIZE)) + str(int((position.y + TILE_SIZE) // TILE_SIZE))
         choices = [neighbor_left, neighbor_right, neighbor_top, neighbor_bottom]
         choice = rand.choice(choices)
         return choice
 
 
+    def check_conquered(self, tile):
+        if tile.is_conquered:
+            return True
+        else:
+            return False
+
     def conquer(self):
         if not self.tile_manager:
             return
         if len(self.conquered_tiles) < 4:
-            conquered_tile = self.get_random_neighbor(self.position.x, self.position.y)
+            conquered_tile = self.get_random_neighbor(self.position)
         else:
-            conquered_tile = rand.choice(self.conquered_tiles)
-            conquered_tile = self.get_random_neighbor(conquered_tile.position.x, conquered_tile.position.y)
+            conquered_tile = None
+            for _i in range(4):
+                choice = rand.choice(self.conquered_tiles)
+                conquered_tile = self.get_random_neighbor(choice.position)
+                print(f"[DEBUG] -> tile -> {conquered_tile}")
+                tile_object = self.tile_manager.get_tile(conquered_tile)
+                if not self.check_conquered(tile=tile_object):
+                    break
 
         print(f"[KGD] -> Tile conquered -> {conquered_tile}")
         tile_object = self.tile_manager.get_tile(conquered_tile)
         tile_object.set_conquered(self)
         self.conquered_tiles.append(tile_object)
-
-        print(self.conquered_tiles)
-        
 
     def level_logic(self):
         if self.experience >= self.next_level:
