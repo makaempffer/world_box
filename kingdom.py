@@ -12,7 +12,7 @@ class Kingdom:
         self.entities = []
         self.size = 10
         self.rect = pg.Rect(self.position.x, self.position.y, self.size, self.size)
-        self.color = (0, 0, 100)
+        self.color = (0, 0, rand.randint(50, 255))
         self.resource_data = ResourceData()
         self.conquered_tiles = []
         self.level = 0
@@ -71,6 +71,7 @@ class Kingdom:
         total_experience = 0
         for item in self.resource_data.data:
             item_exp = self.resource_data.get_quantity(item)
+            # Every item exp modifier should be added here.
             if item == "wood":
                 item_exp *= 1
             elif item == "stone":

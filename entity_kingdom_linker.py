@@ -1,7 +1,7 @@
 from settings import *
 
 class EntityKingdomLinker:
-    def __init__(self, entity_list, kingdom) -> None:
+    def __init__(self, entity_list=None, kingdom=None) -> None:
         self.entity_list = entity_list
         self.kingdom = kingdom
     
@@ -9,3 +9,7 @@ class EntityKingdomLinker:
         for entity in self.entity_list:
             entity.set_kingdom(self.kingdom)
             print("[LINKER] -> Entity-Kingdom link set.")
+
+    def link_kingdom_to_target(self, kingdom, target_list):
+        for entity in target_list:
+            entity.set_kingdom(kingdom)
