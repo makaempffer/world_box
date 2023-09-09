@@ -4,12 +4,14 @@ from settings import *
 from resource_data import ResourceData
 
 
-class Tile:
+class Tile(pg.sprite.Sprite):
     def __init__(self, screen: pg.Surface, x, y):
+        super().__init__()
         self.screen = screen
         self.position = pg.Vector2(x, y)
         self.size = TILE_SIZE
         self.rect = pg.Rect(self.position.x, self.position.y, self.size, self.size)
+        self.image = pg.image.load("./assets/grass.png")
         self.color = (0, 150, 0)
         self.border_color = (200, 200, 200)
         self.resource_data = None
@@ -24,27 +26,20 @@ class Tile:
             self.color = kingdom.color
 
     def setup(self):
-        if randint(0, 100) > 99:
+        if randint(0, 1000) > 990:
             self.resource_data = ResourceData()
             self.resource_data.get_supply("wood", 1000)
 
     def update(self):
-        self.get_color()
+        self.get_tile_type()
+
+    def get_tile_type(self):
+        if self.resource_data:
+            if self.resource_data.data.get("wood"):
+                self.image = pg.image.load("./assets/wood.png")
+            else:
+                self.image = pg.image.load("./assets/grass.png")
 
     def has_resource(self):
         return self.resource_data
 
-    def get_color(self):
-        if self.resource_data:
-            for item in self.resource_data.data:
-                if item == "wood" and self.resource_data.get_quantity(item) >= 1:
-                    self.color = (111, 78, 55)
-
-    def draw(self):
-        pg.draw.rect(self.screen, self.color, self.rect)
-
-    def draw_border(self):
-        #LEFT
-        pg.draw.line(self.screen, self.border_color, self.position, (self.position.x, self.position.y + TILE_SIZE))
-        #TOP
-        pg.draw.line(self.screen, self.border_color, self.position, (self.position.x + TILE_SIZE, self.position.y))
