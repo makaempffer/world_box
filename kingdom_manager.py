@@ -2,6 +2,7 @@ from settings import *
 from random import randint
 from kingdom import Kingdom
 from entity_kingdom_linker import EntityKingdomLinker
+from math import ceil
 
 
 class KingdomManager:
@@ -16,8 +17,8 @@ class KingdomManager:
     def create_kingdoms(self, amount: int):
         for i in range(amount):
             random_x, random_y = randint(0, WIDTH), randint(0, HEIGHT)
-            self.add_kingdom(Kingdom(self.screen, x=random_x,
-                             y=random_y, tile_manager=self.tile_manager))
+            self.add_kingdom(Kingdom(self.screen, x=ceil(random_x/10) * 10,
+                             y=ceil(random_y/10) * 10, tile_manager=self.tile_manager))
 
     def setup_test_kingdom(self):
         self.add_kingdom(Kingdom(self.screen, 500, 500, self.tile_manager))
