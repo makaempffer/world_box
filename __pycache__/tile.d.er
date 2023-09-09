@@ -1,0 +1,9 @@
+##[pylyzer] failed c:\users\kaemp\escritorio\proyects\world_box\tile.py 1693949370 1641
+.pg = pyimport "pygame"
+
+.___v_desugar_1 = pyimport "random"
+.randint: (a: Int, b: Int) => Int
+.___v_desugar_2 = pyimport "settings"
+.*: Never
+.___v_desugar_3 = pyimport "resource_data"
+.ResourceData: Never

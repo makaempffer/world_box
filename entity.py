@@ -2,10 +2,12 @@ from settings import *
 import pygame as pg
 from random import randint
 from resource_data import ResourceData
-# TODO Add searching/discovering/remembering of the resources that has stepped over. 
+# TODO Add searching/discovering/remembering of the resources that has stepped over.
 # TODO Add rutine priorities.
 # TODO Add interaction. Entity -> Tile -> GetResources() -> HarvestResources().
 # TODO Think if give all the entities access/store all tiles or just get one by functions...
+
+
 class Entity:
     def __init__(self, screen, tile_manager):
         self.screen = screen
@@ -17,9 +19,10 @@ class Entity:
         self.clock = pg.time.Clock()
         self.delta_time = 1
         self.cooldown_counter = 0
-        self.MAX_COOLDOWN = 100 # Miliseconds
-        self.can_move = True 
+        self.MAX_COOLDOWN = 100  # Miliseconds
+        self.can_move = True
         self.move_target = None
+        self.batch = randint(0, 1)
         self.kingdom = None
         self.activity_fullfilled = False
         self.rutines = ["wonder", "harvest", "go_home"]
@@ -37,7 +40,7 @@ class Entity:
         if tile.resource_data == None:
             return
         if tile not in self.stored_tile_res:
-            self.stored_tile_res.append(tile) 
+            self.stored_tile_res.append(tile)
         if self.closest_resource == None:
             self.closest_resource = tile
             print(f"[ENT] -> Closest tile resource set -> {tile}")
@@ -55,14 +58,14 @@ class Entity:
         if self.idle == True:
             # Not checking if entity is idling.
             return
-        tile_x , tile_y = self.position.x // TILE_SIZE, self.position.y // TILE_SIZE
-        tile_x_index = str(int(tile_x)) 
+        tile_x, tile_y = self.position.x // TILE_SIZE, self.position.y // TILE_SIZE
+        tile_x_index = str(int(tile_x))
         tile_y_index = str(int(tile_y))
         if int(tile_y_index) < 10:
             tile_y_index = "0" + tile_y_index
 
         index = (tile_x_index) + (tile_y_index)
-        
+
         tile = self.tile_manager.get_tile(index)
         # tile.color = (150, 150, 0)
         self.get_tile_resources(tile)
@@ -75,22 +78,26 @@ class Entity:
             return
         if self.closest_resource and self.position.distance_to(self.closest_resource.position) < 5 and self.resource_data.get_quantity(resource) <= self.MAX_CARRY_LIMIT:
             if self.resource_data.contains(resource):
-                self.resource_data.data[resource] += self.closest_resource.resource_data.get_item(resource)
+                self.resource_data.data[resource] += self.closest_resource.resource_data.get_item(
+                    resource)
                 self.is_harvesting = False
             else:
-                self.resource_data.data[resource] = self.closest_resource.resource_data.get_item(resource)
+                self.resource_data.data[resource] = self.closest_resource.resource_data.get_item(
+                    resource)
                 self.is_harvesting = False
-                
+
     def behavior(self):
         if self.kingdom and self.position.distance_to(self.kingdom.position) < 20:
             self.resource_data.dump_inventory_to_target(self.kingdom)
-            print(f"[ENT] -> Kingdom experience -> {self.kingdom.experience} level -> {self.kingdom.level}")
+            print(
+                f"[ENT] -> Kingdom experience -> {self.kingdom.experience} level -> {self.kingdom.level}")
             # self.resource_data.supply(self.kingdom, "wood", 1)
         current_rutine = self.rutines[0]
         self.rutine_performed = current_rutine
 
         if self.rutine_performed == "wonder" and self.idle == True and not self.move_target:
-            self.move_target = pg.Vector2(randint(0, WIDTH), randint(0, HEIGHT)) 
+            self.move_target = pg.Vector2(
+                randint(0, WIDTH), randint(0, HEIGHT))
             self.idle = False
 
         elif self.rutine_performed == "go_home" and self.idle == True and not self.move_target and self.kingdom:
@@ -113,7 +120,7 @@ class Entity:
         self.kingdom = kingdom
 
     def draw(self):
-    # pg.draw.rect(self.screen, self.color, self.rect)
+        # pg.draw.rect(self.screen, self.color, self.rect)
         pg.draw.circle(self.screen, self.color, self.position, self.size)
 
     def update(self):
@@ -151,7 +158,6 @@ class Entity:
         if self.kingdom:
             self.move_target = self.kingdom.position
 
-
     def move(self):
         self.on_target_reached()
         if self.move_target:
@@ -160,12 +166,11 @@ class Entity:
             if dist_x < 0:
                 self.position.x += 1
             elif dist_x > 0:
-                self.position.x -= 1 
+                self.position.x -= 1
             if dist_y < 0:
-                self.position.y += 1  
+                self.position.y += 1
             elif dist_y > 0:
                 self.position.y -= 1
             self.rect.x = int(self.position.x)
             self.rect.y = int(self.position.y)
             return
-            

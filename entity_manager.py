@@ -8,15 +8,14 @@ class EntityManager:
         self.screen = screen
         self.tile_manager = tile_manager
         self.setup_default_entities(20)
-    
+
     def get_entities(self) -> list:
         return self.entities
-    
-
 
     def setup_default_entities(self, amount: int):
         for _i in range(amount):
-            self.entities.append(Entity(screen = self.screen, tile_manager=self.tile_manager))
+            self.entities.append(
+                Entity(screen=self.screen, tile_manager=self.tile_manager))
 
     def draw(self):
         for entity in self.entities:

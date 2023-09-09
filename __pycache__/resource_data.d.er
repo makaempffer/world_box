@@ -1,0 +1,13 @@
+##[pylyzer] failed c:\users\kaemp\escritorio\proyects\world_box\resource_data.py 1693949370 1424
+.___v_desugar_1 = pyimport "settings"
+.*: Never
+.ResourceData: ClassType
+.ResourceData.data: Never
+.ResourceData.__call__: (data: Obj) -> .ResourceData
+.ResourceData.contains: |C <: Container(T), Type_8 <: Structural({.data = C}), T: Type|(self: Type_8, key: T) -> T or {False, True}
+.ResourceData.get_quantity: |U: Type, K: Type, T: Type, Type_8 <: Structural({.data = Self}), Self <: Indexable(K, V), V: Type, V :> T or U or {0}|(self: Type_8, key: K) -> V
+.ResourceData.get_supply: |D: GenericDict, Type_46 <: Dict!(D), Type_16 <: Structural({.data = Type_46})|(self: Type_16, key_res: Obj, amount: Obj) -> NoneType
+.ResourceData.supply: |Type_22 <: Structural({.resource_data = Never})|(self: .ResourceData, target: Type_22, key_res: Obj, amount: Obj) -> Never
+.ResourceData.dump_inventory_to_target: |Type_27 <: Structural({.data = Type_61}), Type_62: Type, Type_63: Type, Type_61 :> Dict!({Type_62: Type_63})|(self: Type_27, target: Structural({.resource_data = Never})) -> NoneType
+.ResourceData.get_item: |K: Type, Self <: Indexable(K, V), Type_31 <: Structural({.data = Self}), V: Type|(self: Type_31, item := K, quantity := Int) -> Int
+

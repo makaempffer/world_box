@@ -1,0 +1,48 @@
+##[pylyzer] failed c:\users\kaemp\escritorio\proyects\world_box\entity.py 1694298925 6977
+.___v_desugar_1 = pyimport "settings"
+.*: Never
+.pg = pyimport "pygame"
+
+.___v_desugar_2 = pyimport "random"
+.randint: (a: Int, b: Int) => Int
+.___v_desugar_3 = pyimport "resource_data"
+.ResourceData: Never
+.Entity: ClassType
+.Entity.can_move: Never
+.Entity.size: Never
+.Entity.closest_resource: Never
+.Entity.delta_time: Never
+.Entity.resource_data: Never
+.Entity.activity_fullfilled: Never
+.Entity.color: Never
+.Entity.stored_tile_res: Never
+.Entity.rutine_performed: Never
+.Entity.move_target: Never
+.Entity.position: Never
+.Entity.cooldown_counter: Never
+.Entity.screen: Never
+.Entity.is_harvesting: Never
+.Entity.MAX_CARRY_LIMIT: Never
+.Entity.tile_manager: Never
+.Entity.clock: Never
+.Entity.idle: Never
+.Entity.reached: Never
+.Entity.MAX_COOLDOWN: Never
+.Entity.rect: Never
+.Entity.rutines: Never
+.Entity.kingdom: Never
+.Entity.__call__: (screen: Obj, tile_manager: Obj, color: Obj, position: Obj, size: Obj, rect: Obj, clock: Obj, delta_time: Obj, cooldown_counter: Obj, MAX_COOLDOWN: Obj, can_move: Obj, move_target: Obj, kingdom: Obj, activity_fullfilled: Obj, rutines: Obj, rutine_performed: Obj, reached: Obj, idle: Obj, resource_data: Obj, stored_tile_res: Obj, closest_resource: Obj, is_harvesting: Obj, MAX_CARRY_LIMIT: Obj) -> .Entity
+.Entity.get_tile_resources: |Type_38 <: Structural({.closest_resource = T}), T :> NoneType, U :> NoneType, T :> T or U, T <: Structural({.color = Type_93}), Type_93 :> Tuple([{100}, {0}, {0}])|(self: Type_38, tile: T) -> T
+.Entity.get_tile_data: |Type_114: Type, Type_42 <: Structural({.get_tile_resources = (self: Type_42, Type_113) -> Type_114}), Type_113: Type, Type_42 <: Structural({.get_tile_resources = (self: Obj, Type_113) -> Type_114})|(self: Type_42) -> Type_114
+.Entity.harvest_tile: |Type_45 <: Structural({.is_harvesting = Type_126}), Type_126 :> {False}|(self: Type_45, resource := Str) -> NoneType
+.Entity.behavior: |Type_49 <: Structural({.get_tile_data = (self: Type_49) -> Type_158}), Type_158: Type, Type_49 <: Structural({.get_tile_data = (self: Obj) -> Type_158})|(self: Type_49) -> Type_158
+.Entity.set_kingdom: |Type_52 <: Structural({.kingdom = Type_53}), Type_53: Type|(self: Type_52, kingdom: Type_53) -> NoneType
+.Entity.draw: |Type_166: Type, Type_56 <: Structural({.size = Type_166})|(self: Type_56) -> Never
+.Entity.update: |Type_59 <: Structural({.move = (self: Type_59) -> Type_170}), Type_170: Type, Type_59 <: Structural({.move = (self: Obj) -> Type_170})|(self: Type_59) -> Type_170
+.Entity.timer_logic: |Type_62 <: Structural({.cooldown_counter = Type_179}), Type_179 :> {0}|(self: Type_62) -> NoneType
+.Entity.on_cooldown: |Type_65 <: Structural({.can_move = Type_181}), Type_181 :> {True}|(self: Type_65) -> NoneType
+.Entity.pop_rutine: |Type_184 <: Array!(T, N), Type_68 <: Structural({.rutines = Type_184}), T: Type, N: Nat|(self: Type_68) -> NoneType
+.Entity.on_target_reached: |Type_71 <: Structural({.move_target = Type_191}), Type_191 :> {None}|(self: Type_71) -> NoneType
+.Entity.return_home: |Type_195 <: .Entity, Type_74 <: Structural({.kingdom = Type_195})|(self: Type_74) -> NoneType
+.Entity.move: |Type_71 <: Structural({.position = Type_218}), Type_218: Type|(self: Type_71) -> NoneType or Tuple([])
+

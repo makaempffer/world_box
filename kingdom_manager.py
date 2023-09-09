@@ -12,11 +12,12 @@ class KingdomManager:
         self.kingdom_list = []
         self.linker = EntityKingdomLinker()
         self.create_kingdoms(2)
-        
+
     def create_kingdoms(self, amount: int):
         for i in range(amount):
-            random_x, random_y = randint(0, WIDTH), randint(0, HEIGHT) 
-            self.add_kingdom(Kingdom(self.screen, x=random_x, y=random_y, tile_manager=self.tile_manager))
+            random_x, random_y = randint(0, WIDTH), randint(0, HEIGHT)
+            self.add_kingdom(Kingdom(self.screen, x=random_x,
+                             y=random_y, tile_manager=self.tile_manager))
 
     def setup_test_kingdom(self):
         self.add_kingdom(Kingdom(self.screen, 500, 500, self.tile_manager))
@@ -32,8 +33,10 @@ class KingdomManager:
     def draw(self):
         for kingdom in self.kingdoms_data:
             kingdom.draw()
-    
+
     def get_kingdom(self, index: int):
         if len(self.kingdom_list) > 0:
             return self.kingdom_list[index]
 
+    def get_kingdoms(self):
+        return self.kingdom_list

@@ -1,0 +1,9 @@
+##[pylyzer] failed c:\users\kaemp\escritorio\proyects\world_box\kingdom_manager.py 1694299547 1328
+.___v_desugar_1 = pyimport "settings"
+.*: Never
+.___v_desugar_2 = pyimport "random"
+.randint: (a: Int, b: Int) => Int
+.___v_desugar_3 = pyimport "kingdom"
+.Kingdom: Never
+.___v_desugar_4 = pyimport "(...)"
+.EntityKingdomLinker: Never

@@ -7,6 +7,7 @@ from entity_manager import EntityManager
 from kingdom_manager import KingdomManager
 from entity_kingdom_linker import EntityKingdomLinker
 
+
 class Game:
     def __init__(self) -> None:
         pg.init()
@@ -19,7 +20,7 @@ class Game:
         self.setup()
 
     def on_lazy_update(self):
-        # Function that get's called every X time.
+        "Function that get's called every X time."
         print("[MAIN] -> Lazy update.")
         self.tile_manager.update()
 
@@ -33,18 +34,19 @@ class Game:
         self.tile_manager = TileManager(self.screen)
         self.entity_manager = EntityManager(self.screen, self.tile_manager)
         self.kingdom_manager = KingdomManager(self.screen, self.tile_manager)
-        self.entity_linker = EntityKingdomLinker(self.entity_manager.get_entities(), self.kingdom_manager.get_kingdom(0))
-        self.entity_linker.link_kingdom_to_entity()
+        self.entity_linker = EntityKingdomLinker()
+        self.entity_linker.link_all_entities(
+            self.entity_manager.get_entities(), self.kingdom_manager.get_kingdoms())
 
     def update(self):
         self.delta_time = self.clock.tick(FPS)
         self.lazy_counter_logic()
-        ### COMPONENT UPDATES.
+        # COMPONENT UPDATES.
         self.entity_manager.update()
         self.kingdom_manager.update()
-        ### DRAW UPDATES.
+        # DRAW UPDATES.
         pg.display.set_caption(str(self.clock.get_fps()))
-        pg.display.flip()      
+        pg.display.flip()
 
     def draw(self):
         self.screen.fill((0, 0, 0))
@@ -64,6 +66,6 @@ class Game:
             self.update()
             self.draw()
 
+
 game = Game()
 game.run()
-

@@ -1,0 +1,11 @@
+##[pylyzer] failed c:\users\kaemp\escritorio\proyects\world_box\kingdom.py 1693956477 3619
+.pg = pyimport "pygame"
+
+.rand = pyimport "random"
+
+.___v_desugar_1 = pyimport "settings"
+.*: Never
+.___v_desugar_2 = pyimport "entity"
+.Entity: Never
+.___v_desugar_3 = pyimport "resource_data"
+.ResourceData: Never

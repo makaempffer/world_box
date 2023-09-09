@@ -1,0 +1,5 @@
+##[pylyzer] failed c:\users\kaemp\escritorio\proyects\world_box\tile_manager.py 1693949370 807
+.___v_desugar_1 = pyimport "tile"
+.*: Never
+.___v_desugar_2 = pyimport "settings"
+.*: Never

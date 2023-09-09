@@ -1,0 +1,15 @@
+##[pylyzer] failed c:\users\kaemp\escritorio\proyects\world_box\entity_manager.py 1694298929 688
+.___v_desugar_1 = pyimport "settings"
+.*: Never
+.___v_desugar_2 = pyimport "entity"
+.Entity: Never
+.EntityManager: ClassType
+.EntityManager.screen: Never
+.EntityManager.entities: Never
+.EntityManager.tile_manager: Never
+.EntityManager.__call__: (entities: Obj, screen: Obj, tile_manager: Obj) -> .EntityManager
+.EntityManager.get_entities: |Type_24 <: GenericArray, Type_13 <: Structural({.entities = Type_24})|(self: Type_13) -> GenericArray
+.EntityManager.setup_default_entities: |Type_15 <: Structural({.tile_manager = Type_29}), Type_29: Type|(self: Type_15, amount: Int) -> NoneType
+.EntityManager.draw: |Type_18 <: Structural({.entities = Type_31}), Type_31 <: Iterable(Never)|(self: Type_18) -> NoneType
+.EntityManager.update: |Type_21 <: Structural({.entities = Type_34}), Type_34 <: Iterable(Never)|(self: Type_21) -> NoneType
+

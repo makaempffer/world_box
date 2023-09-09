@@ -1,0 +1,11 @@
+##[pylyzer] failed c:\users\kaemp\escritorio\proyects\world_box\entity_kingdom_linker.py 1694299451 739
+.___v_desugar_1 = pyimport "settings"
+.*: Never
+.EntityKingdomLinker: ClassType
+.EntityKingdomLinker.kingdom: Never
+.EntityKingdomLinker.entity_list: Never
+.EntityKingdomLinker.__call__: (entity_list: Obj, kingdom: Obj) -> .EntityKingdomLinker
+.EntityKingdomLinker.link_kingdom_to_entity: |Type_22: Type, Type_9 <: Structural({.kingdom = Type_22})|(self: Type_9) -> NoneType
+.EntityKingdomLinker.link_kingdom_to_target: (self: .EntityKingdomLinker, kingdom: Obj, target_list: Iterable(Never)) -> NoneType
+.EntityKingdomLinker.link_all_entities: (self: .EntityKingdomLinker, entities: GenericArray, kingdoms: GenericArray) -> NoneType
+
