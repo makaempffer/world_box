@@ -89,8 +89,6 @@ class Entity:
     def behavior(self):
         if self.kingdom and self.position.distance_to(self.kingdom.position) < 20:
             self.resource_data.dump_inventory_to_target(self.kingdom)
-            print(
-                f"[ENT] -> Kingdom experience -> {self.kingdom.experience} level -> {self.kingdom.level}")
             # self.resource_data.supply(self.kingdom, "wood", 1)
         current_rutine = self.rutines[0]
         self.rutine_performed = current_rutine
@@ -133,7 +131,6 @@ class Entity:
         self.cooldown_counter += 1
         if self.cooldown_counter >= self.MAX_COOLDOWN:
             self.on_cooldown()
-            print("[ENT.CLOCK] -> Cooldown reached.")
             self.cooldown_counter = 0
 
     def on_cooldown(self):
@@ -148,8 +145,6 @@ class Entity:
         if self.position == self.move_target:
             # Changing fullfiled routine to the back of the stack.
             self.pop_rutine()
-            print(f'[ENT] -> Routine: {self.rutines}')
-            print("[ENT] -> Target reached.")
             self.idle = True
             self.reached = True
             self.move_target = None
