@@ -64,6 +64,9 @@ class Kingdom:
 
         print(f"[KGD] -> Tile conquered -> {conquered_tile}")
         tile_object = self.tile_manager.get_tile(conquered_tile)
+        if tile_object.position != pg.Vector2(int(conquered_tile[0:2] + "0"), int(conquered_tile[2:4] + "0")):
+            print("[KGD.ERR] -> Tile matching error. -> ", tile_object.position, pg.Vector2(int(conquered_tile[0:2] + "0"), int(conquered_tile[2:4] + "0")))
+            return
         tile_object.set_conquered(self)
         self.conquered_tiles.append(tile_object)
     
