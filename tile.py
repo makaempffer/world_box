@@ -34,6 +34,9 @@ class Tile(pg.sprite.Sprite):
         self.get_tile_type()
 
     def get_tile_type(self):
+        if self.is_conquered:
+            self.image = pg.image.load("./assets/brick_floor.png")
+            return
         if self.resource_data:
             if self.resource_data.data.get("wood"):
                 self.image = pg.image.load("./assets/wood.png")

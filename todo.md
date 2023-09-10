@@ -19,3 +19,4 @@
 
 # KNOWN ISSUES: 
 1. Min size of the window = 1000, 1000 due to the tile getting functions.
+2. Random tiles getting flagged as conquered.
